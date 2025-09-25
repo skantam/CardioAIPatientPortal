@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Mail, Lock, Eye, EyeOff, Globe } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { supabase } from '../lib/supabase';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -110,9 +111,25 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
           return;
         }
       } else {
-        result = isLogin 
-          ? await signIn(email, password)
-          : await signUp(email, password);
+        if (isLogin) {
+          result = await signIn(email, password);
+        } else {
+          result = await signUp(email, password);
+          
+          // If signup successful and we have a country, save it to the users table
+          if (!result.error && country) {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+              await supabase
+                .from('users')
+                .insert({
+                  id: user.id,
+                  email: user.email,
+                  country: country
+                });
+            }
+          }
+        }
       }
 
       if (result.error) {
