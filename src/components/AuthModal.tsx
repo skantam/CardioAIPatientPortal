@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { X, Mail, Lock, Eye, EyeOff, Globe } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 interface AuthModalProps {
@@ -12,17 +12,92 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [country, setCountry] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const { signIn, signUp, resetPassword } = useAuth();
 
+  const countries = [
+    { code: 'US', name: 'United States' },
+    { code: 'CA', name: 'Canada' },
+    { code: 'GB', name: 'United Kingdom' },
+    { code: 'AU', name: 'Australia' },
+    { code: 'DE', name: 'Germany' },
+    { code: 'FR', name: 'France' },
+    { code: 'IT', name: 'Italy' },
+    { code: 'ES', name: 'Spain' },
+    { code: 'NL', name: 'Netherlands' },
+    { code: 'SE', name: 'Sweden' },
+    { code: 'NO', name: 'Norway' },
+    { code: 'DK', name: 'Denmark' },
+    { code: 'FI', name: 'Finland' },
+    { code: 'CH', name: 'Switzerland' },
+    { code: 'AT', name: 'Austria' },
+    { code: 'BE', name: 'Belgium' },
+    { code: 'IE', name: 'Ireland' },
+    { code: 'NZ', name: 'New Zealand' },
+    { code: 'JP', name: 'Japan' },
+    { code: 'KR', name: 'South Korea' },
+    { code: 'SG', name: 'Singapore' },
+    { code: 'HK', name: 'Hong Kong' },
+    { code: 'IN', name: 'India' },
+    { code: 'BR', name: 'Brazil' },
+    { code: 'MX', name: 'Mexico' },
+    { code: 'AR', name: 'Argentina' },
+    { code: 'CL', name: 'Chile' },
+    { code: 'CO', name: 'Colombia' },
+    { code: 'PE', name: 'Peru' },
+    { code: 'ZA', name: 'South Africa' },
+    { code: 'EG', name: 'Egypt' },
+    { code: 'NG', name: 'Nigeria' },
+    { code: 'KE', name: 'Kenya' },
+    { code: 'MA', name: 'Morocco' },
+    { code: 'TN', name: 'Tunisia' },
+    { code: 'GH', name: 'Ghana' },
+    { code: 'CN', name: 'China' },
+    { code: 'TH', name: 'Thailand' },
+    { code: 'VN', name: 'Vietnam' },
+    { code: 'MY', name: 'Malaysia' },
+    { code: 'ID', name: 'Indonesia' },
+    { code: 'PH', name: 'Philippines' },
+    { code: 'TW', name: 'Taiwan' },
+    { code: 'IL', name: 'Israel' },
+    { code: 'AE', name: 'United Arab Emirates' },
+    { code: 'SA', name: 'Saudi Arabia' },
+    { code: 'TR', name: 'Turkey' },
+    { code: 'RU', name: 'Russia' },
+    { code: 'UA', name: 'Ukraine' },
+    { code: 'PL', name: 'Poland' },
+    { code: 'CZ', name: 'Czech Republic' },
+    { code: 'HU', name: 'Hungary' },
+    { code: 'RO', name: 'Romania' },
+    { code: 'BG', name: 'Bulgaria' },
+    { code: 'HR', name: 'Croatia' },
+    { code: 'SI', name: 'Slovenia' },
+    { code: 'SK', name: 'Slovakia' },
+    { code: 'LT', name: 'Lithuania' },
+    { code: 'LV', name: 'Latvia' },
+    { code: 'EE', name: 'Estonia' },
+    { code: 'GR', name: 'Greece' },
+    { code: 'CY', name: 'Cyprus' },
+    { code: 'MT', name: 'Malta' },
+    { code: 'LU', name: 'Luxembourg' },
+    { code: 'IS', name: 'Iceland' },
+    { code: 'PT', name: 'Portugal' },
+  ];
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
     setSuccessMessage('');
+
+    if (!isLogin && !isForgotPassword && !country) {
+      setError('Please select your country');
+      setLoading(false);
+      return;
+    }
 
     try {
       let result;
@@ -47,6 +122,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
           onClose();
           setEmail('');
           setPassword('');
+          setCountry('');
+          setCountry('');
         }
       }
     } catch (err) {
@@ -65,6 +142,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     }
     setError('');
     setSuccessMessage('');
+    setCountry('');
   };
 
   const showForgotPassword = () => {
@@ -72,6 +150,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     setIsLogin(false);
     setError('');
     setSuccessMessage('');
+    setCountry('');
   };
 
   if (!isOpen) return null;
@@ -117,6 +196,35 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               />
             </div>
           </div>
+
+          {!isForgotPassword && !isLogin && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Country
+              </label>
+              <div className="relative">
+                <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <select
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors appearance-none bg-white"
+                  required
+                >
+                  <option value="">Select your country</option>
+                  {countries.map((countryOption) => (
+                    <option key={countryOption.code} value={countryOption.code}>
+                      {countryOption.name}
+                    </option>
+                  ))}
+                </select>
+                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          )}
 
           {!isForgotPassword && (
             <div>
