@@ -114,21 +114,15 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         if (isLogin) {
           result = await signIn(email, password);
         } else {
-          result = await signUp(email, password);
-          
-          // If signup successful and we have a country, save it to the users table
-          if (!result.error && country) {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-              await supabase
-                .from('users')
-                .insert({
-                  id: user.id,
-                  email: user.email,
-                  country: country
-                });
+          result = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+              data: {
+                country: country
+              }
             }
-          }
+          });
         }
       }
 
