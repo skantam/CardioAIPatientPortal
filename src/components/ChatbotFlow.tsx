@@ -1464,18 +1464,7 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 : 'Perfect, that\'s everything I need! Your assessment has been submitted and is being processed. You can view your results in the Assessment History tab.'
               }
             </p>
-            /*<button
-              onClick={() => {
-                setStep('intro');
-                setAssessmentData({});
-                setValidationErrors([]);
-                setFileParseMessage('');
-                setUploadedFile(null);
-              }}
-              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
-            >
-              Start New Assessment
-            </button>*/
+           
           </div>
         );
 
