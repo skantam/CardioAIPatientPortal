@@ -439,32 +439,6 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
         }
       }
       
-      // Get user's country from metadata
-      const userCountry = user?.user_metadata?.country || null;
-      console.log('User country from metadata:', userCountry);
-      console.log('Full user metadata:', user?.user_metadata);
-      
-      const submittedAssessment = {
-        user_id: user?.id,
-        inputs: assessmentData,
-        usercountry: userCountry,
-      };
-
-      console.log('Submitting assessment with country:', submittedAssessment.usercountry);
-
-      const { data, error } = await supabase
-        .from('assessments')
-        .insert(submittedAssessment)
-        .select();
-
-      if (error) {
-        console.error('Error submitting assessment:', error);
-        setError('Failed to submit assessment. Please try again.');
-        return;
-      }
-
-      console.log('Assessment submitted successfully with country:', data?.[0]?.usercountry);
-
       if (foundValues > 0) {
         // Update assessment data with extracted values
         setAssessmentData(prev => ({ ...prev, ...extractedValues }));
@@ -476,7 +450,6 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
         setFileParseMessage(`✅ Found ${foundValues} lab value(s): ${valuesList.join(', ')}`);
       } else {
         setFileParseMessage('⚠️ Could not automatically extract lab values from your file. Please enter them manually below. Make sure the file contains clear cholesterol and blood pressure values.');
-      console.log('Assessment submitted with country:', data.usercountry);
       }
     } catch (error) {
       console.error('File parsing error:', error);
@@ -665,30 +638,33 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
         assessment = data;
       } else {
         // Create new assessment
-             let country: string | null = null;
+        // Get user's country from metadata
+        const userCountry = user?.user_metadata?.country || null;
+        console.log('User country from metadata:', userCountry);
+        console.log('Full user metadata:', user?.user_metadata);
         
-        if (user.raw_user_meta_data) {
-          try {
-            const parsedMeta = JSON.parse(user.raw_user_meta_data as string);
-            country = parsedMeta.country || null;
-          } catch (err) {
-            console.error("Error parsing raw_user_meta_data", err);
-            country = null;
-          }
-        }
-        const { data, error: dbError } = await supabase
-          .from('assessments')
-          .insert({
-            user_id: user.id,
-            inputs: assessmentData,
-            usercountry: country,
-            status: 'pending_review'
-          })
-          .select()
-          .single();
+        const submittedAssessment = {
+          user_id: user.id,
+          inputs: assessmentData,
+          status: 'pending_review',
+          usercountry: userCountry,
+        };
 
-        if (dbError) throw dbError;
-        assessment = data;
+        console.log('Submitting assessment with country:', submittedAssessment.usercountry);
+
+        const { data, error } = await supabase
+          .from('assessments')
+          .insert(submittedAssessment)
+          .select();
+
+        if (error) {
+          console.error('Error submitting assessment:', error);
+          setError('Failed to submit assessment. Please try again.');
+          return;
+        }
+
+        console.log('Assessment submitted successfully with country:', data?.[0]?.usercountry);
+        assessment = data[0];
       }
 
       // Call n8n webhook
