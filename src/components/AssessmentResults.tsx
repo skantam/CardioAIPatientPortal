@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Calendar, User, Activity, Heart, FileText, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Activity, Heart, FileText, AlertTriangle, Phone, MapPin, X } from 'lucide-react';
 
 interface AssessmentResultsProps {
   assessment: any;
@@ -15,6 +15,8 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({
   const [searchingCardiologists, setSearchingCardiologists] = React.useState(false);
   const [searchCompleted, setSearchCompleted] = React.useState(false);
   const [searchError, setSearchError] = React.useState('');
+  const [selectedCardiologist, setSelectedCardiologist] = React.useState<any>(null);
+  const [showContactModal, setShowContactModal] = React.useState(false);
 
   const getRiskColor = (category: string | null) => {
     switch (category?.toLowerCase()) {
@@ -340,7 +342,15 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({
                         </div>
                       </div>
                       <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
-                        Contact
+                        <button 
+                          onClick={() => {
+                            setSelectedCardiologist(cardiologist);
+                            setShowContactModal(true);
+                          }}
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
+                        >
+                          Contact
+                        </button>
                       </button>
                     </div>
                   </div>
@@ -350,8 +360,62 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({
           )}
         </div>
       )}
+
+      {/* Contact Modal */}
+      {showContactModal && selectedCardiologist && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl p-8 w-full max-w-md">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold text-gray-900">Contact Provider</h3>
+              <button
+                onClick={() => {
+                  setShowContactModal(false);
+                  setSelectedCardiologist(null);
+                }}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold text-gray-900 mb-2">{selectedCardiologist.name}</h4>
+              <div className="space-y-2 text-sm text-gray-600">
+                <div className="flex items-center">
+                  <MapPin className="w-4 h-4 mr-2" />
+                  {selectedCardiologist.address}
+                </div>
+                <div>🆔 ID: {selectedCardiologist.id}</div>
+                <div>🏥 {selectedCardiologist.specialty}</div>
+              </div>
+            </div>
     </div>
   );
 };
 
+            <div className="space-y-3">
+              <button
+                onClick={() => {
+                  const address = encodeURIComponent(selectedCardiologist.address);
+                  window.open(`https://www.google.com/maps/search/?api=1&query=${address}`, '_blank');
+                }}
+                className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center"
+              >
+                <MapPin className="w-5 h-5 mr-2" />
+                Get Directions
+              </button>
+              
+              <button
+                onClick={() => {
+                  setShowContactModal(false);
+                  setSelectedCardiologist(null);
+                }}
+                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-3 rounded-xl font-medium"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 export default AssessmentResults;
