@@ -445,6 +445,23 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
       }
       
           usercountry: userCountry,
+        };
+
+        console.log('Submitting assessment with country:', submittedAssessment.usercountry);
+
+        const { data, error } = await supabase
+          .from('assessments')
+          .insert(submittedAssessment)
+          .select();
+
+        if (error) {
+          console.error('Error submitting assessment:', error);
+          setError('Failed to submit assessment. Please try again.');
+          return;
+        }
+
+        console.log('Assessment submitted successfully with country:', data?.[0]?.usercountry);
+
       if (foundValues > 0) {
         // Update assessment data with extracted values
         setAssessmentData(prev => ({ ...prev, ...extractedValues }));
