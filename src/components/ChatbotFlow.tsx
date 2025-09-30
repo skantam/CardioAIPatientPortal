@@ -1070,7 +1070,7 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
         return (
           <div>
             <h3 className="text-xl font-bold text-gray-900 mb-4">
-              Have any immediate family members (parents, siblings, children) had a heart attack?
+              Have any immediate family members (parents, siblings, children) had a heart attack before age 60?
             </h3>
             <div className="grid grid-cols-2 gap-4 mb-6">
               <button
