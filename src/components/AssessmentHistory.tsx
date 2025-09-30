@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AlertCircle, Calendar, Clock, CheckCircle, CreditCard as Edit, Trash2, Eye, MapPin } from 'lucide-react';
+import { AlertCircle, Calendar, Clock, CheckCircle, CreditCard as Edit, Trash2, Eye, MapPin, Phone, X } from 'lucide-react';
 import ChatbotFlow from './ChatbotFlow';
 import AssessmentResults from './AssessmentResults';
 
@@ -17,6 +17,8 @@ const AssessmentHistory: React.FC<AssessmentHistoryProps> = ({ assessments, onRe
   const [zipCode, setZipCode] = useState('');
   const [cardiologists, setCardiologists] = useState<any[]>([]);
   const [searchingCardiologists, setSearchingCardiologists] = useState(false);
+  const [selectedCardiologist, setSelectedCardiologist] = useState<any>(null);
+  const [showContactModal, setShowContactModal] = useState(false);
 
   const handleDeleteConfirm = async (assessmentId: string) => {
     try {
@@ -318,7 +320,13 @@ const AssessmentHistory: React.FC<AssessmentHistoryProps> = ({ assessments, onRe
                           <div>🏥 {cardiologist.specialty}</div>
                         </div>
                       </div>
-                      <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
+                      <button 
+                        onClick={() => {
+                          setSelectedCardiologist(cardiologist);
+                          setShowContactModal(true);
+                        }}
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
+                      >
                         Contact
                       </button>
                     </div>
@@ -326,6 +334,78 @@ const AssessmentHistory: React.FC<AssessmentHistoryProps> = ({ assessments, onRe
                 ))}
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Contact Modal */}
+      {showContactModal && selectedCardiologist && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" style={{ zIndex: 10000 }}>
+          <div className="bg-white rounded-3xl p-8 w-full max-w-md">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold text-gray-900">Contact Provider</h3>
+              <button
+                onClick={() => {
+                  setShowContactModal(false);
+                  setSelectedCardiologist(null);
+                }}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold text-gray-900 mb-2">{selectedCardiologist.name}</h4>
+              <div className="space-y-2 text-sm text-gray-600">
+                <div className="flex items-center">
+                  <MapPin className="w-4 h-4 mr-2" />
+                  {selectedCardiologist.location}
+                </div>
+                {selectedCardiologist.phone && (
+                  <div className="flex items-center">
+                    <Phone className="w-4 h-4 mr-2" />
+                    {selectedCardiologist.phone}
+                  </div>
+                )}
+                <div>🏥 {selectedCardiologist.specialty}</div>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              {selectedCardiologist.phone && (
+                <button
+                  onClick={() => {
+                    window.location.href = `tel:${selectedCardiologist.phone}`;
+                  }}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center"
+                >
+                  <Phone className="w-5 h-5 mr-2" />
+                  Call {selectedCardiologist.phone}
+                </button>
+              )}
+              
+              <button
+                onClick={() => {
+                  const address = encodeURIComponent(selectedCardiologist.location);
+                  window.open(`https://www.google.com/maps/search/?api=1&query=${address}`, '_blank');
+                }}
+                className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center"
+              >
+                <MapPin className="w-5 h-5 mr-2" />
+                Get Directions
+              </button>
+              
+              <button
+                onClick={() => {
+                  setShowContactModal(false);
+                  setSelectedCardiologist(null);
+                }}
+                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-3 rounded-xl font-medium"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}
