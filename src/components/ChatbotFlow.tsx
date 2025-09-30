@@ -433,34 +433,37 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
               foundValues++;
               console.log('Found total cholesterol (broad match):', value);
               break;
-    // Get user's country from metadata
-    const userCountry = user?.user_metadata?.country || null;
-    console.log('User country from metadata:', userCountry);
-    console.log('Full user metadata:', user?.user_metadata);
-    
             }
           }
           if (extractedValues.totalCholesterol) break;
         }
       }
       
-          usercountry: userCountry,
-        };
+      // Get user's country from metadata
+      const userCountry = user?.user_metadata?.country || null;
+      console.log('User country from metadata:', userCountry);
+      console.log('Full user metadata:', user?.user_metadata);
+      
+      const submittedAssessment = {
+        user_id: user?.id,
+        inputs: assessmentData,
+        usercountry: userCountry,
+      };
 
-        console.log('Submitting assessment with country:', submittedAssessment.usercountry);
+      console.log('Submitting assessment with country:', submittedAssessment.usercountry);
 
-        const { data, error } = await supabase
-          .from('assessments')
-          .insert(submittedAssessment)
-          .select();
+      const { data, error } = await supabase
+        .from('assessments')
+        .insert(submittedAssessment)
+        .select();
 
-        if (error) {
-          console.error('Error submitting assessment:', error);
-          setError('Failed to submit assessment. Please try again.');
-          return;
-        }
+      if (error) {
+        console.error('Error submitting assessment:', error);
+        setError('Failed to submit assessment. Please try again.');
+        return;
+      }
 
-        console.log('Assessment submitted successfully with country:', data?.[0]?.usercountry);
+      console.log('Assessment submitted successfully with country:', data?.[0]?.usercountry);
 
       if (foundValues > 0) {
         // Update assessment data with extracted values
