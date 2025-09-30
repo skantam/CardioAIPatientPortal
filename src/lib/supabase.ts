@@ -27,6 +27,7 @@ export type Database = {
           provider_comments: string | null;
           status: string;
           results: any | null;
+          usercountry: string | null;
         };
         Insert: {
           id?: string;
@@ -42,6 +43,7 @@ export type Database = {
           provider_comments?: string | null;
           status?: string;
           results?: any | null;
+          usercountry?: string | null;
         };
         Update: {
           id?: string;
@@ -57,6 +59,7 @@ export type Database = {
           provider_comments?: string | null;
           status?: string;
           results?: any | null;
+          usercountry?: string | null;
         };
       };
       consent_history: {
