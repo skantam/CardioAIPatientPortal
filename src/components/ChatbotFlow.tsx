@@ -638,12 +638,21 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
         assessment = data;
       } else {
         // Create new assessment
+     const rawMeta = user.raw_user_meta_data; // this is a string
+        let country: string | null = null;
+        
+        try {
+          const parsed = JSON.parse(rawMeta);
+          country = parsed.country || null;
+        } catch (e) {
+          country = null;
+        }
         const { data, error: dbError } = await supabase
           .from('assessments')
           .insert({
             user_id: user.id,
             inputs: assessmentData,
-            usercountry: user.user_metadata?.country || null,
+            usercountry: country,
             status: 'pending_review'
           })
           .select()
