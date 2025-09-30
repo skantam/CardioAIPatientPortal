@@ -433,12 +433,18 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
               foundValues++;
               console.log('Found total cholesterol (broad match):', value);
               break;
+    // Get user's country from metadata
+    const userCountry = user?.user_metadata?.country || null;
+    console.log('User country from metadata:', userCountry);
+    console.log('Full user metadata:', user?.user_metadata);
+    
             }
           }
           if (extractedValues.totalCholesterol) break;
         }
       }
       
+          usercountry: userCountry,
       if (foundValues > 0) {
         // Update assessment data with extracted values
         setAssessmentData(prev => ({ ...prev, ...extractedValues }));
@@ -450,6 +456,7 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
         setFileParseMessage(`✅ Found ${foundValues} lab value(s): ${valuesList.join(', ')}`);
       } else {
         setFileParseMessage('⚠️ Could not automatically extract lab values from your file. Please enter them manually below. Make sure the file contains clear cholesterol and blood pressure values.');
+      console.log('Assessment submitted with country:', data.usercountry);
       }
     } catch (error) {
       console.error('File parsing error:', error);
