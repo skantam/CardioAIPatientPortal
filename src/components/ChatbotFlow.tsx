@@ -643,6 +643,7 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
           .insert({
             user_id: user.id,
             inputs: assessmentData,
+            UserCountry: user.user_metadata?.country || null,
             status: 'pending_review'
           })
           .select()
