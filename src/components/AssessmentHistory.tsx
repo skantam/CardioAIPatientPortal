@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AlertCircle, Calendar, Clock, CheckCircle, Edit, Trash2, Eye, MapPin } from 'lucide-react';
+import { AlertCircle, Calendar, Clock, CheckCircle, CreditCard as Edit, Trash2, Eye, MapPin } from 'lucide-react';
 import ChatbotFlow from './ChatbotFlow';
 import AssessmentResults from './AssessmentResults';
 
