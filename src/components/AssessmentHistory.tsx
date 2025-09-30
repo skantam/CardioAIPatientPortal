@@ -6,9 +6,10 @@ import AssessmentResults from './AssessmentResults';
 interface AssessmentHistoryProps {
   assessments: any[];
   onRefresh: () => void;
+  onDeleteAssessment: (id: string) => void;
 }
 
-const AssessmentHistory: React.FC<AssessmentHistoryProps> = ({ assessments, onRefresh }) => {
+const AssessmentHistory: React.FC<AssessmentHistoryProps> = ({ assessments, onRefresh, onDeleteAssessment }) => {
   const [selectedAssessment, setSelectedAssessment] = useState<any>(null);
   const [editingAssessment, setEditingAssessment] = useState<any>(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
@@ -19,8 +20,7 @@ const AssessmentHistory: React.FC<AssessmentHistoryProps> = ({ assessments, onRe
 
   const handleDeleteConfirm = async (assessmentId: string) => {
     try {
-      // Add your delete logic here
-      console.log('Deleting assessment:', assessmentId);
+      await onDeleteAssessment(assessmentId);
       setDeleteConfirmId(null);
       onRefresh();
     } catch (error) {
