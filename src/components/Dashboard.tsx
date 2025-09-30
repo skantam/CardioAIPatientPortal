@@ -43,7 +43,7 @@ const Dashboard = () => {
     
     const { data, error } = await supabase
       .from('assessments')
-      .select('*')
+      .select('id, user_id, created_at, inputs, risk_score, risk_category, recommendations, guidelines, disclaimer, overall_recommendation, provider_comments, status, results')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false });
 
