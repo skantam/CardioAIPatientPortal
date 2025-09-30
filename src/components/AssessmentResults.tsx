@@ -85,7 +85,8 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <>
+      <div className="max-w-4xl mx-auto">
       <div className="mb-6">
         <button
           onClick={onBack}
@@ -360,6 +361,7 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({
           )}
         </div>
       )}
+      </div>
 
       {/* Contact Modal */}
       {showContactModal && selectedCardiologist && (
@@ -387,6 +389,39 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({
                 </div>
                 <div>🆔 ID: {selectedCardiologist.id}</div>
                 <div>🏥 {selectedCardiologist.specialty}</div>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <button
+                onClick={() => {
+                  const address = encodeURIComponent(selectedCardiologist.address);
+                  window.open(`https://www.google.com/maps/search/?api=1&query=${address}`, '_blank');
+                }}
+                className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center"
+              >
+                <MapPin className="w-5 h-5 mr-2" />
+                Get Directions
+              </button>
+              
+              <button
+                onClick={() => {
+                  setShowContactModal(false);
+                  setSelectedCardiologist(null);
+                }}
+                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-3 rounded-xl font-medium"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default AssessmentResults;
               </div>
             </div>
     </div>
