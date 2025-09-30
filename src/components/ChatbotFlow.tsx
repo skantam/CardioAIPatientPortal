@@ -638,14 +638,16 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
         assessment = data;
       } else {
         // Create new assessment
-     const rawMeta = user.raw_user_meta_data; // this is a string
-        let country: string | null = null;
+             let country: string | null = null;
         
-        try {
-          const parsed = JSON.parse(rawMeta);
-          country = parsed.country || null;
-        } catch (e) {
-          country = null;
+        if (user.raw_user_meta_data) {
+          try {
+            const parsedMeta = JSON.parse(user.raw_user_meta_data as string);
+            country = parsedMeta.country || null;
+          } catch (err) {
+            console.error("Error parsing raw_user_meta_data", err);
+            country = null;
+          }
         }
         const { data, error: dbError } = await supabase
           .from('assessments')
