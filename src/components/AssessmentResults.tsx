@@ -33,6 +33,7 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({
 
   const shouldShowCardiologistSearch = assessment.overall_recommendation?.toLowerCase().includes('requires-discussion');
 
+  /*
   const searchCardiologists = async () => {
     if (!zipCode) return;
 
@@ -83,6 +84,55 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({
       setSearchCompleted(true);
     }
   };
+  */
+
+  const searchCardiologists = async () => {
+  if (!zipCode) return;
+
+  setSearchingCardiologists(true);
+  setSearchCompleted(false);
+  setSearchError('');
+  setCardiologists([]);
+
+  try {
+    // 🔹 Replace n8n URL with your Supabase Edge Function URL
+    const response = await fetch(
+      import.meta.env.VITE_EDGE_FN_URL || 'https://<YOUR_PROJECT_REF>.functions.supabase.co/cardiologist-search',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ zipcode: zipCode }),
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Cardiologist search response:', data);
+
+      if (Array.isArray(data) && data.length > 0 && data[0].name) {
+        setCardiologists(data);
+      } else if (data?.providers && Array.isArray(data.providers)) {
+        setCardiologists(data.providers);
+      } else if (Array.isArray(data) && data[0]?.providers) {
+        setCardiologists(data[0].providers);
+      } else {
+        console.log('Unexpected data structure:', data);
+        setSearchError('No cardiologists found in your area.');
+      }
+    } else {
+      setSearchError('Failed to search for cardiologists. Please try again.');
+    }
+  } catch (error) {
+    console.error('Error searching cardiologists:', error);
+    setSearchError('An error occurred while searching. Please try again.');
+  } finally {
+    setSearchingCardiologists(false);
+    setSearchCompleted(true);
+  }
+};
+
 
   return (
     <div className="max-w-4xl mx-auto">
