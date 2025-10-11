@@ -937,13 +937,22 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 </div>
               </div>
             )}
-            <button
-              type="submit"
-              disabled={!assessmentData.age || validationErrors.length > 0}
-              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-50"
-            >
-              Continue
-            </button>
+            <div className="flex gap-4">
+              <button
+                type="button"
+                onClick={() => setStep('intro')}
+                className="bg-gray-100 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-all"
+              >
+                Go Back
+              </button>
+              <button
+                type="submit"
+                disabled={!assessmentData.age || validationErrors.length > 0}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-50"
+              >
+                Continue
+              </button>
+            </div>
           </form>
         );
 
@@ -979,7 +988,7 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 Female
               </button>
             </div>
-            {editingAssessment && assessmentData.gender && (
+            {assessmentData.gender && (
               <div className="flex gap-4">
                 <button
                   type="button"
@@ -1024,7 +1033,7 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 </button>
               ))}
             </div>
-            {editingAssessment && assessmentData.race && (
+            {assessmentData.race && (
               <div className="flex gap-4">
                 <button
                   type="button"
@@ -1077,7 +1086,7 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 No
               </button>
             </div>
-            {editingAssessment && assessmentData.smoker !== undefined && (
+            {assessmentData.smoker !== undefined && (
               <div className="flex gap-4">
                 <button
                   type="button"
@@ -1132,7 +1141,7 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 No
               </button>
             </div>
-            {editingAssessment && assessmentData.diabetes !== undefined && (
+            {assessmentData.diabetes !== undefined && (
               <div className="flex gap-4">
                 <button
                   type="button"
@@ -1187,7 +1196,7 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 No
               </button>
             </div>
-            {editingAssessment && assessmentData.familyHistory !== undefined && (
+            {assessmentData.familyHistory !== undefined && (
               <div className="flex gap-4">
                 <button
                   type="button"
@@ -1242,7 +1251,7 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 No
               </button>
             </div>
-            {editingAssessment && assessmentData.highBP !== undefined && (
+            {assessmentData.highBP !== undefined && (
               <div className="flex gap-4">
                 <button
                   type="button"
@@ -1304,7 +1313,7 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 No
               </button>
             </div>
-            {editingAssessment && assessmentData.bpMedication !== undefined && (
+            {assessmentData.bpMedication !== undefined && (
               <div className="flex gap-4">
                 <button
                   type="button"
@@ -1359,7 +1368,7 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 No
               </button>
             </div>
-            {editingAssessment && assessmentData.cholesterolMedication !== undefined && (
+            {assessmentData.cholesterolMedication !== undefined && (
               <div className="flex gap-4">
                 <button
                   type="button"
@@ -1537,24 +1546,14 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
               </div>
             </div>
 
-            {editingAssessment ? (
-              <div className="flex gap-4">
-                <button
-                  type="button"
-                  onClick={() => setStep('cholesterol-medication')}
-                  className="bg-gray-100 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-all"
-                >
-                  Go Back
-                </button>
-                <button
-                  type="submit"
-                  disabled={!assessmentData.systolicBP || !assessmentData.totalCholesterol || !assessmentData.hdlCholesterol || validationErrors.length > 0}
-                  className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
-                >
-                  Continue to Review
-                </button>
-              </div>
-            ) : (
+            <div className="flex gap-4">
+              <button
+                type="button"
+                onClick={() => setStep('cholesterol-medication')}
+                className="bg-gray-100 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-all"
+              >
+                Go Back
+              </button>
               <button
                 type="submit"
                 disabled={!assessmentData.systolicBP || !assessmentData.totalCholesterol || !assessmentData.hdlCholesterol || validationErrors.length > 0}
@@ -1562,7 +1561,7 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
               >
                 Continue to Review
               </button>
-            )}
+            </div>
           </form>
         );
 
