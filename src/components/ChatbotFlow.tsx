@@ -980,13 +980,22 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
               </button>
             </div>
             {editingAssessment && assessmentData.gender && (
-              <button
-                type="button"
-                onClick={() => setStep('race')}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
-              >
-                Continue
-              </button>
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  onClick={() => setStep('age')}
+                  className="bg-gray-100 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-all"
+                >
+                  Go Back
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setStep('race')}
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+                >
+                  Continue
+                </button>
+              </div>
             )}
           </div>
         );
@@ -1016,13 +1025,22 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
               ))}
             </div>
             {editingAssessment && assessmentData.race && (
-              <button
-                type="button"
-                onClick={() => setStep('smoker')}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
-              >
-                Continue
-              </button>
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  onClick={() => setStep('gender')}
+                  className="bg-gray-100 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-all"
+                >
+                  Go Back
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setStep('smoker')}
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+                >
+                  Continue
+                </button>
+              </div>
             )}
           </div>
         );
@@ -1060,13 +1078,22 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
               </button>
             </div>
             {editingAssessment && assessmentData.smoker !== undefined && (
-              <button
-                type="button"
-                onClick={() => setStep('diabetes')}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
-              >
-                Continue
-              </button>
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  onClick={() => setStep('race')}
+                  className="bg-gray-100 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-all"
+                >
+                  Go Back
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setStep('diabetes')}
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+                >
+                  Continue
+                </button>
+              </div>
             )}
           </div>
         );
@@ -1106,13 +1133,22 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
               </button>
             </div>
             {editingAssessment && assessmentData.diabetes !== undefined && (
-              <button
-                type="button"
-                onClick={() => setStep('family-history')}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
-              >
-                Continue
-              </button>
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  onClick={() => setStep('smoker')}
+                  className="bg-gray-100 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-all"
+                >
+                  Go Back
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setStep('family-history')}
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+                >
+                  Continue
+                </button>
+              </div>
             )}
           </div>
         );
@@ -1152,13 +1188,22 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
               </button>
             </div>
             {editingAssessment && assessmentData.familyHistory !== undefined && (
-              <button
-                type="button"
-                onClick={() => setStep('blood-pressure')}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
-              >
-                Continue
-              </button>
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  onClick={() => setStep('diabetes')}
+                  className="bg-gray-100 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-all"
+                >
+                  Go Back
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setStep('blood-pressure')}
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+                >
+                  Continue
+                </button>
+              </div>
             )}
           </div>
         );
@@ -1198,20 +1243,29 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
               </button>
             </div>
             {editingAssessment && assessmentData.highBP !== undefined && (
-              <button
-                type="button"
-                onClick={() => {
-                  if (assessmentData.highBP) {
-                    setStep('bp-medication');
-                  } else {
-                    setAssessmentData(prev => ({ ...prev, bpMedication: false }));
-                    setStep('cholesterol-medication');
-                  }
-                }}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
-              >
-                Continue
-              </button>
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  onClick={() => setStep('family-history')}
+                  className="bg-gray-100 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-all"
+                >
+                  Go Back
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (assessmentData.highBP) {
+                      setStep('bp-medication');
+                    } else {
+                      setAssessmentData(prev => ({ ...prev, bpMedication: false }));
+                      setStep('cholesterol-medication');
+                    }
+                  }}
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+                >
+                  Continue
+                </button>
+              </div>
             )}
           </div>
         );
@@ -1251,13 +1305,22 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
               </button>
             </div>
             {editingAssessment && assessmentData.bpMedication !== undefined && (
-              <button
-                type="button"
-                onClick={() => setStep('cholesterol-medication')}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
-              >
-                Continue
-              </button>
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  onClick={() => setStep('blood-pressure')}
+                  className="bg-gray-100 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-all"
+                >
+                  Go Back
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setStep('cholesterol-medication')}
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+                >
+                  Continue
+                </button>
+              </div>
             )}
           </div>
         );
@@ -1297,13 +1360,28 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
               </button>
             </div>
             {editingAssessment && assessmentData.cholesterolMedication !== undefined && (
-              <button
-                type="button"
-                onClick={() => setStep('lab-data')}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
-              >
-                Continue
-              </button>
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (assessmentData.highBP) {
+                      setStep('bp-medication');
+                    } else {
+                      setStep('blood-pressure');
+                    }
+                  }}
+                  className="bg-gray-100 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-all"
+                >
+                  Go Back
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setStep('lab-data')}
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+                >
+                  Continue
+                </button>
+              </div>
             )}
           </div>
         );
@@ -1459,13 +1537,24 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
               </div>
             </div>
 
-            <button
-              type="submit"
-              disabled={!assessmentData.systolicBP || !assessmentData.totalCholesterol || !assessmentData.hdlCholesterol || validationErrors.length > 0}
-              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
-            >
-              Continue to Review
-            </button>
+            <div className="flex gap-4">
+              {editingAssessment && (
+                <button
+                  type="button"
+                  onClick={() => setStep('cholesterol-medication')}
+                  className="bg-gray-100 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-all"
+                >
+                  Go Back
+                </button>
+              )}
+              <button
+                type="submit"
+                disabled={!assessmentData.systolicBP || !assessmentData.totalCholesterol || !assessmentData.hdlCholesterol || validationErrors.length > 0}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+              >
+                Continue to Review
+              </button>
+            </div>
           </form>
         );
 
