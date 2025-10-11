@@ -97,7 +97,7 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({
   try {
     // 🔹 Replace n8n URL with your Supabase Edge Function URL
     const response = await fetch(
-      import.meta.env.VITE_EDGE_FN_URL || 'https://<YOUR_PROJECT_REF>.functions.supabase.co/cardiologist-search',
+      import.meta.env.VITE_EDGE_FN_URL,
       {
         method: 'POST',
         headers: {
