@@ -1537,8 +1537,8 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
               </div>
             </div>
 
-            <div className="flex gap-4">
-              {editingAssessment && (
+            {editingAssessment ? (
+              <div className="flex gap-4">
                 <button
                   type="button"
                   onClick={() => setStep('cholesterol-medication')}
@@ -1546,7 +1546,15 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 >
                   Go Back
                 </button>
-              )}
+                <button
+                  type="submit"
+                  disabled={!assessmentData.systolicBP || !assessmentData.totalCholesterol || !assessmentData.hdlCholesterol || validationErrors.length > 0}
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+                >
+                  Continue to Review
+                </button>
+              </div>
+            ) : (
               <button
                 type="submit"
                 disabled={!assessmentData.systolicBP || !assessmentData.totalCholesterol || !assessmentData.hdlCholesterol || validationErrors.length > 0}
@@ -1554,7 +1562,7 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
               >
                 Continue to Review
               </button>
-            </div>
+            )}
           </form>
         );
 
