@@ -10,6 +10,7 @@ import HowItWorks from './components/HowItWorks';
 import TestimonialsCarousel from './components/TestimonialsCarousel';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
+import CardiologistSearch from "./components/CardiologistSearch";
 
 function AppContent() {
   const { user, loading } = useAuth();
