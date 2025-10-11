@@ -979,6 +979,15 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 Female
               </button>
             </div>
+            {editingAssessment && assessmentData.gender && (
+              <button
+                type="button"
+                onClick={() => setStep('race')}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+              >
+                Continue
+              </button>
+            )}
           </div>
         );
 
@@ -1006,6 +1015,15 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 </button>
               ))}
             </div>
+            {editingAssessment && assessmentData.race && (
+              <button
+                type="button"
+                onClick={() => setStep('smoker')}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+              >
+                Continue
+              </button>
+            )}
           </div>
         );
 
@@ -1041,6 +1059,15 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 No
               </button>
             </div>
+            {editingAssessment && assessmentData.smoker !== undefined && (
+              <button
+                type="button"
+                onClick={() => setStep('diabetes')}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+              >
+                Continue
+              </button>
+            )}
           </div>
         );
 
@@ -1078,6 +1105,15 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 No
               </button>
             </div>
+            {editingAssessment && assessmentData.diabetes !== undefined && (
+              <button
+                type="button"
+                onClick={() => setStep('family-history')}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+              >
+                Continue
+              </button>
+            )}
           </div>
         );
 
@@ -1115,6 +1151,15 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 No
               </button>
             </div>
+            {editingAssessment && assessmentData.familyHistory !== undefined && (
+              <button
+                type="button"
+                onClick={() => setStep('blood-pressure')}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+              >
+                Continue
+              </button>
+            )}
           </div>
         );
 
@@ -1152,6 +1197,22 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 No
               </button>
             </div>
+            {editingAssessment && assessmentData.highBP !== undefined && (
+              <button
+                type="button"
+                onClick={() => {
+                  if (assessmentData.highBP) {
+                    setStep('bp-medication');
+                  } else {
+                    setAssessmentData(prev => ({ ...prev, bpMedication: false }));
+                    setStep('cholesterol-medication');
+                  }
+                }}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+              >
+                Continue
+              </button>
+            )}
           </div>
         );
 
@@ -1189,6 +1250,15 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 No
               </button>
             </div>
+            {editingAssessment && assessmentData.bpMedication !== undefined && (
+              <button
+                type="button"
+                onClick={() => setStep('cholesterol-medication')}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+              >
+                Continue
+              </button>
+            )}
           </div>
         );
 
@@ -1226,6 +1296,15 @@ const ChatbotFlow: React.FC<ChatbotFlowProps> = ({ onAssessmentComplete, hasPend
                 No
               </button>
             </div>
+            {editingAssessment && assessmentData.cholesterolMedication !== undefined && (
+              <button
+                type="button"
+                onClick={() => setStep('lab-data')}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-800 transition-all"
+              >
+                Continue
+              </button>
+            )}
           </div>
         );
 
