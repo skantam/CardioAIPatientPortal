@@ -21,7 +21,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onAuthClick }) => {
             </h1>
             
             <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
-              Proactive, personalized, and preventative care — all starting with a simple conversation.
+              Designed for adults 40+, our AI-powered chat helps you detect risks early and take control before it’s too late.
             </p>
 
             {/* 5-star rating */}
