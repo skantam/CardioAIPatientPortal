@@ -19,7 +19,7 @@ const Navigation: React.FC<NavigationProps> = ({ onAuthClick }) => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-6 py-4">
+      <div className="w-full px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">

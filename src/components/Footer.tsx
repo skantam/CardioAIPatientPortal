@@ -7,8 +7,8 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ onAuthClick }) => {
   return (
-    <footer className="bg-gray-900 text-white py-16 px-6">
-      <div className="max-w-7xl mx-auto">
+    <footer className="bg-gray-900 text-white py-16">
+      <div className="w-full px-4">
         {/* CTA Section */}
         <div className="text-center mb-16 py-12 bg-gradient-to-r from-blue-600 to-emerald-600 rounded-3xl">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">

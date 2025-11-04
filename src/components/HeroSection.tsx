@@ -8,8 +8,8 @@ interface HeroSectionProps {
 const HeroSection: React.FC<HeroSectionProps> = ({ onAuthClick }) => {
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-emerald-50 px-6 pt-32 pb-16">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-emerald-50 pt-32 pb-16">
+      <div className="w-full px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="text-center lg:text-left">
