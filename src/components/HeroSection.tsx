@@ -20,9 +20,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onAuthClick }) => {
               </span>
             </h1>
             
-            <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
-              Designed for adults 40+, our AI-powered chat helps you detect risks early and take control before it’s too late.
-            </p>
+           <p className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4 leading-snug">
+            Stop heart attacks before they start.
+          </p>
+          <p className="text-base md:text-lg text-gray-600 mb-8 leading-relaxed">
+            Designed for adults 40+, our AI-powered chat helps you detect risks early and take control before it’s too late.
+          </p>
+
 
             {/* 5-star rating */}
             <div className="flex items-center justify-center lg:justify-start mb-8">
